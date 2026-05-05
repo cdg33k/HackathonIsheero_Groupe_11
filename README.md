@@ -25,7 +25,7 @@ Les données du notebook sont chargées directement depuis le repository GitHub 
 
 ##  Nettoyage des données
 
-###Problème identifié
+- Problème identifié
 
 Une ambiguïté géographique a été détectée entre :
 
@@ -47,9 +47,14 @@ Un dashboard interactif permettra d’explorer les données.
 Nous somme sûrs que nous sommes la meilleure équipe du hackathon et nous pouvons faire plus si nous en avons l'opportunité !
 
 Hackathon Isheero — Groupe 11
+
+
 Data Analyst --	HOUETO Inès
+
 Data Science --	SARA GANKOU Alimi
+
 ML Engineer --	OUEDRAOGO Somtinda Abdoul Khalil
+
 ML Engineer	-- AYETOLOU Cynthia
 
 
