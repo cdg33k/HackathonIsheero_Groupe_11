@@ -19,7 +19,7 @@ Nous avons un dossier :
 - `notebooks` contenant les notebooks utilisés :
   - `Notebook_1Challenge_isheero__G11` : processus de récupération et de nettoyage des données
   - `notebook-eda-model` : analyse exploratoire des données et entraînement du modèle de prédiction de conflits (voir détails ci-dessous)
-- `dashboard` : lien vers notre dashboard interactif
+- `dashboard` : captures d'écran du dashboard, vidéo démo et fichier .pbix
 - `model` : sauvegarde du modèle produit et ajouté à la dernière minute le dossier zippé du dashboard suite à un problème de mise en ligne
 
 ## Chargement des données dans les notebooks
@@ -87,9 +87,9 @@ Le modèle Random Forest détecte correctement la montée de risque en décembre
 Le dashboard Power BI est organisé comme suit :
 - **Vue d'ensemble** : KPIs globaux (volume d'articles, ton moyen, nombre de sources), évolution temporelle et répartition par origine des médias et par domaine thématique
 - **Analyse thématique** : évolution du ton médiatique, stabilité par type d'événement (échelle de Goldstein), ton moyen par domaine
-- **Événements marquants** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
+- **Vue opérationnelle** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
 
-Nous avons des difficultés avec la mise en ligne du dashboard, voici donc un overview du résultat
+Nous avons des difficultés avec la mise en ligne du dashboard. Vous trouverai une vidéo demo dans le dossier dashboard. Le dashboard est totalement fonctionnel et les filtres temporels sont opérationnels!
 
 ## Équipe
 
