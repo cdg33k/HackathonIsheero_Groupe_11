@@ -20,9 +20,10 @@ Nous avons un dossier :
     - database_clean: la base de donnée finale avec nettoyage des données provenant du Nigeria.
     - et data_daily_features :  Les données agrégées par jour utilisées pour le modèle;
 
-- notebooks contenant les notebooks utilisés
-- dash qui contient le lien vers notre dash board
-- et modèle qui contient l'ébauche du model ML
+- notebooks contenant les notebooks utilisés : 
+    - Notebook_1Challenge_isheero__G11 qui contient le processus de récupération et de nettoyage des données
+    -  Notebookk-eda-model qui contient ------
+- dashboard qui contient le lien vers notre dashboard
 
 ## Chargement des données
 
