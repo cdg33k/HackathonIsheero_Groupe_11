@@ -22,17 +22,27 @@ Nous avons un dossier :
 - `dashboard` : lien vers notre dashboard interactif
 - `model` : sauvegarde du modèle produit
 
-## Chargement des données
+## Chargement des données dans les notebooks
 Les données des notebooks sont chargées directement depuis le repository GitHub afin de garantir la reproductibilité, indépendamment de l'environnement.
 
 ## Nettoyage des données
 
-### Problème identifié
-Une ambiguïté géographique a été détectée entre :
-- **Bénin (pays)** et
-- **Benin City (Nigeria)**
-
-La stratégie adoptée a été de filtrer ces données en se basant sur des mots-clés afin d'obtenir un dataset le plus propre possible.
+# Récupération des données
+ 
+Les données proviennent de deux tables BigQuery du projet GDELT :
+- `gdelt-bq.gdeltv2.events` : les événements (acteurs, type, ton, géolocalisation…)
+- `gdelt-bq.gdeltv2.gkg` : les thèmes détectés dans les articles et les noms de médias sources
+Ces deux tables sont jointes via `SOURCEURL` (events) et `DocumentIdentifier` (gkg). Les données sont chargées directement depuis le repository GitHub pour garantir la reproductibilité.
+ 
+## Nettoyage des données
+ 
+Trois problèmes ont été identifiés et traités.
+ 
+**Bruit géographique** — Le mot "Benin" désigne à la fois le pays et Benin City au Nigeria. Une grande partie des événements récupérés ne concernait pas le Bénin. Un filtrage par mots-clés ("benin city", "edo", "lagos", "nigeria"…) a permis de supprimer ces lignes. Environ 40% des données ont été supprimées. La stratégie adoptée a été de filtrer ces données en se basant sur des mots-clés afin d'obtenir un dataset le plus propre possible.
+ 
+**Doublons miroirs** — GDELT crée deux lignes pour chaque événement impliquant deux pays, en inversant les rôles des acteurs. Ces paires ont des identifiants différents mais représentent le même événement. Elles ont été dédupliquées via une partition sur la date, l'URL source, le code événement et le score de Goldstein.
+ 
+**Mentions accessoires** — Certains articles citaient le Bénin de façon secondaire (ex. "pays voisin du Togo") sans en faire leur sujet principal. Le filtre `IsRootEvent = 1` a été appliqué pour ne conserver que les événements centraux de chaque article.
 
 ## Analyse exploratoire & Modèle
 
@@ -75,7 +85,11 @@ Le modèle Random Forest détecte correctement la montée de risque en décembre
 | `data_daily_features.csv` | Dataset journalier avec toutes les features |
 
 ## Dashboard
-Un dashboard interactif permet d'explorer les données et les résultats du modèle.
+ 
+Le dashboard Power BI est organisé en 3 pages :
+- **Vue d'ensemble** : KPIs globaux (volume d'articles, ton moyen, nombre de sources), évolution temporelle et répartition par origine des médias et par domaine thématique
+- **Analyse thématique** : évolution du ton médiatique, stabilité par type d'événement (échelle de Goldstein), ton moyen par domaine
+- **Événements marquants** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
 
 ## Équipe
 
