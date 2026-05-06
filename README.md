@@ -20,7 +20,7 @@ Nous avons un dossier :
   - `Notebook_1Challenge_isheero__G11` : processus de récupération et de nettoyage des données
   - `notebook-eda-model` : analyse exploratoire des données et entraînement du modèle de prédiction de conflits (voir détails ci-dessous)
 - `dashboard` : lien vers notre dashboard interactif
-- `model` : sauvegarde du modèle produit
+- `model` : sauvegarde du modèle produit et ajouté à la dernière minute le dossier zippé du dashboard suite à un problème de mise en ligne
 
 ## Chargement des données dans les notebooks
 Les données des notebooks sont chargées directement depuis le repository GitHub afin de garantir la reproductibilité, indépendamment de l'environnement.
@@ -84,7 +84,7 @@ Le modèle Random Forest détecte correctement la montée de risque en décembre
 
 ## Dashboard
  
-Le dashboard Power BI est organisé en 3 pages :
+Le dashboard Power BI est organisé comme suit :
 - **Vue d'ensemble** : KPIs globaux (volume d'articles, ton moyen, nombre de sources), évolution temporelle et répartition par origine des médias et par domaine thématique
 - **Analyse thématique** : évolution du ton médiatique, stabilité par type d'événement (échelle de Goldstein), ton moyen par domaine
 - **Événements marquants** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
