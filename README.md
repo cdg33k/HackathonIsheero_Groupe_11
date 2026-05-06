@@ -24,6 +24,7 @@ Nous avons un dossier :
     - Notebook_1Challenge_isheero__G11 qui contient le processus de récupération et de nettoyage des données
     -  Notebookk-eda-model qui contient ------
 - dashboard qui contient le lien vers notre dashboard
+- et le dossier model qui contient la sauvegarde du model produit
 
 ## Chargement des données
 
