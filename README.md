@@ -25,9 +25,7 @@ Nous avons un dossier :
 ## Chargement des données dans les notebooks
 Les données des notebooks sont chargées directement depuis le repository GitHub afin de garantir la reproductibilité, indépendamment de l'environnement.
 
-## Nettoyage des données
-
-# Récupération des données
+## Récupération des données
  
 Les données proviennent de deux tables BigQuery du projet GDELT :
 - `gdelt-bq.gdeltv2.events` : les événements (acteurs, type, ton, géolocalisation…)
@@ -38,11 +36,11 @@ Ces deux tables sont jointes via `SOURCEURL` (events) et `DocumentIdentifier` (g
  
 Trois problèmes ont été identifiés et traités.
  
-**Bruit géographique** — Le mot "Benin" désigne à la fois le pays et Benin City au Nigeria. Une grande partie des événements récupérés ne concernait pas le Bénin. Un filtrage par mots-clés ("benin city", "edo", "lagos", "nigeria"…) a permis de supprimer ces lignes. Environ 40% des données ont été supprimées. La stratégie adoptée a été de filtrer ces données en se basant sur des mots-clés afin d'obtenir un dataset le plus propre possible.
+**Bruit géographique** : Le mot "Benin" désigne à la fois le pays et Benin City au Nigeria. Une grande partie des événements récupérés ne concernait pas le Bénin. Un filtrage par mots-clés ("benin city", "edo", "lagos", "nigeria"…) a permis de supprimer ces lignes. Environ 40% des données ont été supprimées. La stratégie adoptée a été de filtrer ces données en se basant sur des mots-clés afin d'obtenir un dataset le plus propre possible.
  
-**Doublons miroirs** — GDELT crée deux lignes pour chaque événement impliquant deux pays, en inversant les rôles des acteurs. Ces paires ont des identifiants différents mais représentent le même événement. Elles ont été dédupliquées via une partition sur la date, l'URL source, le code événement et le score de Goldstein.
+**Doublons miroirs** : GDELT crée deux lignes pour chaque événement impliquant deux pays, en inversant les rôles des acteurs. Ces paires ont des identifiants différents mais représentent le même événement. Elles ont été dédupliquées via une partition sur la date, l'URL source, le code événement et le score de Goldstein.
  
-**Mentions accessoires** — Certains articles citaient le Bénin de façon secondaire (ex. "pays voisin du Togo") sans en faire leur sujet principal. Le filtre `IsRootEvent = 1` a été appliqué pour ne conserver que les événements centraux de chaque article.
+**Mentions accessoires** : Certains articles citaient le Bénin de façon secondaire (ex. "pays voisin du Togo") sans en faire leur sujet principal. Le filtre `IsRootEvent = 1` a été appliqué pour ne conserver que les événements centraux de chaque article.
 
 ## Analyse exploratoire & Modèle
 
