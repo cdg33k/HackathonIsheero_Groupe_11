@@ -89,6 +89,8 @@ Le dashboard Power BI est organisé comme suit :
 - **Analyse thématique** : évolution du ton médiatique, stabilité par type d'événement (échelle de Goldstein), ton moyen par domaine
 - **Événements marquants** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
 
+Nous avons des difficultés avec la mise en ligne du dashboard, voici donc un overview du résultat
+
 ## Équipe
 
 Nous sommes sûrs que nous sommes la meilleure équipe du hackathon et nous pouvons faire plus si nous en avons l'opportunité !
