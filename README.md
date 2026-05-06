@@ -34,7 +34,7 @@ Une ambiguïté géographique a été détectée entre :
 
 La stratégie adoptée a été de filtrer ces données en se basant sur des mots-clés afin d'obtenir un dataset le plus propre possible.
 
-## Analyse exploratoire & Modèle — `notebook-eda-model`
+## Analyse exploratoire & Modèle
 
 Ce notebook réalise une analyse exploratoire (EDA) puis entraîne un modèle de machine learning pour **prédire l'apparition d'un conflit au Bénin dans les 7 prochains jours**, à partir des données médiatiques GDELT 2025.
 
@@ -89,3 +89,6 @@ Nous sommes sûrs que nous sommes la meilleure équipe du hackathon et nous pouv
 | Data Science | SARA GANKOU Alimi |
 | ML Engineer | OUEDRAOGO Somtinda Abdoul Khalil |
 | ML Engineer | AYETOLOU Cynthia |
+
+
+NB : Mise en forme du readme réalisé avec l'IA
