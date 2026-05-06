@@ -14,7 +14,8 @@ Ce projet a pour objectif d’analyser les événements liés au Bénin à parti
 
 ##  Structure du projet
 Nous avons un dossier : 
-- data contenant les fichiers csv initiaux et finaux
+- data contenant les fichiers csv initiaux et finaux, notamment :
+    - Les données agrégées par jour utilisées pour le modèle, le modèle et le notebook  
 - notebooks contenant les notebooks utilisés
 - dash qui contient le lien vers notre dash board
 - et modèle qui contient l'ébauche du model ML
