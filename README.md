@@ -58,7 +58,7 @@ Ce notebook réalise une analyse exploratoire (EDA) puis entraîne un modèle de
 - `conflit_detect` *(target)* : 1 si au moins un `crisis_day` est détecté dans les **7 jours suivants**.
 
 ### Modélisation
-- **Split temporel** : 80% des données (passé) pour l'entraînement, 20% (futur) pour le test — sans data leakage.
+- **Split temporel** : 80% des données (passé) pour l'entraînement, 20% (futur) pour le test,sans data leakage.
 - **Gestion du déséquilibre** : pondération des classes (`class_weight='balanced'`).
 - Deux modèles entraînés et comparés :
   - **Random Forest** (`n_estimators=200`, `max_depth=10`)
