@@ -15,7 +15,11 @@ Ce projet a pour objectif d’analyser les événements liés au Bénin à parti
 ##  Structure du projet
 Nous avons un dossier : 
 - data contenant les fichiers csv initiaux et finaux, notamment :
-    - Les données agrégées par jour utilisées pour le modèle, le modèle et le notebook  
+    - data_event qui sont les données brutes extraites du 1er Janvier au 31 décembre 2025
+    - gkg: qui sont les données extraites de la table gkg contenant les sources;
+    - database_clean: la base de donnée finale avec nettoyage des données provenant du Nigeria.
+    - et data_daily_features :  Les données agrégées par jour utilisées pour le modèle;
+
 - notebooks contenant les notebooks utilisés
 - dash qui contient le lien vers notre dash board
 - et modèle qui contient l'ébauche du model ML
@@ -42,7 +46,7 @@ Un modèle de machine learning sera ajouté pour ---.
 
 ##  Dashboard (à venir)
 
-Un dashboard interactif permettra d’explorer les données.
+Un dashboard interactif permettra d’explorer les données. décembre 
 
 ## Équipe
 Nous somme sûrs que nous sommes la meilleure équipe du hackathon et nous pouvons faire plus si nous en avons l'opportunité !
