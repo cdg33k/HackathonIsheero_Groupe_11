@@ -19,7 +19,7 @@ Nous avons un dossier :
 - `notebooks` contenant les notebooks utilisés :
   - `Notebook_1Challenge_isheero__G11` : processus de récupération et de nettoyage des données
   - `notebook-eda-model` : analyse exploratoire des données et entraînement du modèle de prédiction de conflits (voir détails ci-dessous)
-- `dashboard` : captures d'écran du dashboard et fichier .pbix ajoutés à la dernière minute suite à un problème de mise en ligne
+- `dashboard` : captures d'écran du dashboard et fichier .pbix ajoutés à la dernière minute suite à un problème de mise en ligne. Le lien ici : https://drive.google.com/drive/folders/1eNCG36iUHV006lmpyMIfxz5XypkuwDsi?usp=sharing
 - `model` : sauvegarde du modèle produit 
 
 ## Chargement des données dans les notebooks
