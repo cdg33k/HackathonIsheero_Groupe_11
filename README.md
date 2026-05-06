@@ -1,4 +1,4 @@
-# HackathonIsheero Groupe 11
+# HackathonIsheero Equipe 11
 # Analyse des crises au Bénin à partir des données GDELT
 
 ## Objectif du projet
