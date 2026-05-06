@@ -19,8 +19,8 @@ Nous avons un dossier :
 - `notebooks` contenant les notebooks utilisés :
   - `Notebook_1Challenge_isheero__G11` : processus de récupération et de nettoyage des données
   - `notebook-eda-model` : analyse exploratoire des données et entraînement du modèle de prédiction de conflits (voir détails ci-dessous)
-- `dashboard` : captures d'écran du dashboard, vidéo démo et fichier .pbix
-- `model` : sauvegarde du modèle produit et ajouté à la dernière minute le dossier zippé du dashboard suite à un problème de mise en ligne
+- `dashboard` : captures d'écran du dashboard et fichier .pbix ajoutés à la dernière minute suite à un problème de mise en ligne
+- `model` : sauvegarde du modèle produit 
 
 ## Chargement des données dans les notebooks
 Les données des notebooks sont chargées directement depuis le repository GitHub afin de garantir la reproductibilité, indépendamment de l'environnement.
@@ -89,7 +89,7 @@ Le dashboard Power BI est organisé comme suit :
 - **Analyse thématique** : évolution du ton médiatique, stabilité par type d'événement (échelle de Goldstein), ton moyen par domaine
 - **Vue opérationnelle** : accès aux 10 événements les plus récents, les plus couverts, les plus déstabilisateurs ou les plus positifs sur une période donnée, avec lien vers l'article source
 
-Nous avons des difficultés avec la mise en ligne du dashboard. Vous trouverai une vidéo demo dans le dossier dashboard. Le dashboard est totalement fonctionnel et les filtres temporels sont opérationnels!
+Nous avons des difficultés avec la mise en ligne du dashboard. Vous trouverai une vidéo demo dans le dossier du lien google drive contenant la vidéo de présentation. Le dashboard est totalement fonctionnel et les filtres temporels sont opérationnels!
 
 ## Équipe
 
