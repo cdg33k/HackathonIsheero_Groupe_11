@@ -111,9 +111,9 @@ Le code du pipeline est disponible dans `pipeline/main.py`.
 
 ## Équipe
 
-Nous sommes sûrs que nous sommes la meilleure équipe du hackathon et nous pouvons faire plus si nous en avons l'opportunité !
+Nous sommes sûrs que nous sommes la meilleure équipe du hackathon ;). Nous vous remercions de nous avoir donné l'opportunité de travailler sur ce projet,  et restons positifs quant aux résultats !
 
-**Hackathon Isheero — Groupe 11**
+**Hackathon Isheero — Equipe 11**
 
 | Rôle | Nom |
 |---|---|
