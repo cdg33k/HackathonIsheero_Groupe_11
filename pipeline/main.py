@@ -492,7 +492,22 @@ def run_pipeline(request):
         'has_edo', 'has_lagos', 'has_abuja'
     ])
 
-    # ── ÉTAPE 6 : Colonnes dérivées ──
+    # ── ÉTAPE 6 : Nettoyage — identique au notebook ──
+    mots_nigerians = 'benin city|edo|oba of benin|benincity|lagos|nigeria'
+
+    # Déduplication par GLOBALEVENTID
+    df_final = df_final.drop_duplicates(subset='GLOBALEVENTID').copy()
+
+    # Suppression articles Benin City via SOURCEURL
+    df_final = df_final[~df_final['SOURCEURL'].str.contains(mots_nigerians, case=False, na=False)]
+
+    # Gestion des NaN
+    df_final['Actor1Name']       = df_final['Actor1Name'].fillna("Unknown")
+    df_final['Actor2Name']       = df_final['Actor2Name'].fillna("Unknown")
+    df_final['SourceCommonName'] = df_final['SourceCommonName'].fillna("Unknown")
+    df_final['Themes']           = df_final['Themes'].fillna("")
+
+    # ── ÉTAPE 7 : Colonnes dérivées ──
 
     # crisis — même formule que le notebook
     df_final['crisis'] = df_final['QuadClass'].isin([3, 4]).astype(int)
@@ -503,7 +518,7 @@ def run_pipeline(request):
     # Region
     df_final['Region'] = df_final['SourceCommonName'].apply(associer_region)
 
-    # ── ÉTAPE 7 : Colonnes finales dans l'ordre exact de la table BigQuery ──
+    # ── ÉTAPE 8 : Colonnes finales dans l'ordre exact de la table BigQuery ──
     colonnes_finales = [
         'GLOBALEVENTID', 'SQLDATE', 'ActionGeo_FullName',
         'ActionGeo_Lat', 'ActionGeo_Long', 'AvgTone',
@@ -517,7 +532,7 @@ def run_pipeline(request):
 
     print(f"{len(df_final)} lignes à charger dans BigQuery")
 
-     # ── ÉTAPE 8 : Supprimer les données existantes pour cette date ──
+     # ── ÉTAPE 9 : Supprimer les données existantes pour cette date ──
     client = bigquery.Client()
     table_id = "isheero.test.benin_final"
     
@@ -528,7 +543,7 @@ def run_pipeline(request):
     client.query(delete_query).result()
     print(f"Données existantes supprimées pour {target_date}")
 
-    # ── ÉTAPE 9 : Charger dans BigQuery en mode APPEND ──
+    # ── ÉTAPE 10 : Charger dans BigQuery en mode APPEND ──
 
     job_config = bigquery.LoadJobConfig(
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
