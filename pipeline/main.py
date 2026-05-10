@@ -7,7 +7,7 @@ from google.cloud import bigquery
 from datetime import datetime, timedelta
 
 # ============================================================
-# DICTIONNAIRE MAPPING DOMAINES (nom exact du notebook)
+# DICTIONNAIRE MAPPING DOMAINES
 # ============================================================
 
 Domaine_MAPPING = {
@@ -61,7 +61,7 @@ Domaine_MAPPING = {
 }
 
 # ============================================================
-# DICTIONNAIRE MÉDIAS (identique au notebook)
+# DICTIONNAIRE MÉDIAS
 # ============================================================
 
 MEDIAS_CONNUS = {
@@ -339,7 +339,7 @@ def run_pipeline(request):
     
     print(f"Traitement des données du {target_date}")
 
-    # ── ÉTAPE 1 : Récupérer les URLs des fichiers GDELT d'hier ──
+    # etape 1 : récupérer les URLs des fichiers GDELT d'hie
     master_url = "http://data.gdeltproject.org/gdeltv2/masterfilelist.txt"
     response = requests.get(master_url, timeout=60)
     lines = response.text.strip().split('\n')
@@ -362,7 +362,7 @@ def run_pipeline(request):
     if not events_urls:
         return "Aucun fichier trouvé pour hier", 200
 
-    # ── ÉTAPE 2 : Télécharger et filtrer events sur Bénin ──
+    # etape 2 : télécharger et filtrer events sur Bénin
     events_frames = []
 
     for url in events_urls:
@@ -388,7 +388,7 @@ def run_pipeline(request):
 
     df_events_raw = pd.concat(events_frames, ignore_index=True)
 
-    # Sélectionner les colonnes utiles
+    # sélectionner les colonnes utiles
     cols_map = {
         0:  'GLOBALEVENTID',
         1:  'SQLDATE',
@@ -411,13 +411,13 @@ def run_pipeline(request):
     df_events = df_events_raw[list(cols_map.keys())].copy()
     df_events = df_events.rename(columns=cols_map)
 
-    # Dédoublonner — même logique que le notebook
+    # dédoublonner 
     df_events = df_events.drop_duplicates(
         subset=['SQLDATE', 'SOURCEURL', 'EventRootCode', 'GoldsteinScale'],
         keep='first'
     )
 
-    # Convertir les types
+    # convertir les types
     df_events['SQLDATE']        = pd.to_datetime(df_events['SQLDATE'], format='%Y%m%d', errors='coerce')
     df_events['GLOBALEVENTID']  = pd.to_numeric(df_events['GLOBALEVENTID'], errors='coerce')
     df_events['ActionGeo_Lat']  = pd.to_numeric(df_events['ActionGeo_Lat'], errors='coerce')
@@ -433,7 +433,7 @@ def run_pipeline(request):
 
     print(f"{len(df_events)} événements Bénin après dédoublonnage")
 
-    # ── ÉTAPE 3 : Télécharger GKG et filtrer sur URLs Bénin ──
+    # etape 3 télécharger GKG et filtrer sur URLs Bénin
     benin_urls_set = set(df_events['SOURCEURL'].dropna().tolist())
     gkg_frames = []
 
@@ -456,7 +456,7 @@ def run_pipeline(request):
             print(f"Erreur GKG {url}: {e}")
             continue
 
-    # ── ÉTAPE 4 : Jointure events + GKG ──
+    # etape 4 jointure events + GKG 
     if gkg_frames:
         df_gkg = pd.concat(gkg_frames, ignore_index=True).drop_duplicates('DocumentIdentifier')
         df_final = df_events.merge(
@@ -470,35 +470,34 @@ def run_pipeline(request):
         df_final['SourceCommonName'] = None
         df_final['Themes'] = None
 
-    # ── ÉTAPE 5 : Détection bruit Benin City (même logique notebook) ──
+    # 5 détection bruit Benin City
     # Créer le texte combiné
     text_cols = ['ActionGeo_FullName', 'Actor1Name', 'Actor2Name',
                  'SOURCEURL', 'Themes', 'SourceCommonName']
     df_final['combined_text'] = df_final[text_cols].fillna('').agg(' '.join, axis=1).str.lower()
 
-    # Créer les flags — identiques au notebook
+    # Créer les flags
     df_final['has_benin_city'] = df_final['combined_text'].str.contains('benin city', case=False, na=False)
     df_final['has_nigeria']    = df_final['combined_text'].str.contains('nigeria', case=False, na=False)
     df_final['has_edo']        = df_final['combined_text'].str.contains(r'\bedo\b', case=False, na=False)
     df_final['has_lagos']      = df_final['combined_text'].str.contains('lagos', case=False, na=False)
     df_final['has_abuja']      = df_final['combined_text'].str.contains('abuja', case=False, na=False)
 
-    # Comme dans le notebook : on garde tout (pas de filtre)
     # Les flags sont créés pour analyse mais pas utilisés comme filtre
 
-    # Supprimer les colonnes temporaires — non présentes dans la table finale
+    # supression des colonnes temporaires
     df_final = df_final.drop(columns=[
         'combined_text', 'has_benin_city', 'has_nigeria',
         'has_edo', 'has_lagos', 'has_abuja'
     ])
 
-    # ── ÉTAPE 6 : Nettoyage — identique au notebook ──
+    # etape 6 nettoyage
     mots_nigerians = 'benin city|edo|oba of benin|benincity|lagos|nigeria'
 
     # Déduplication par GLOBALEVENTID
     df_final = df_final.drop_duplicates(subset='GLOBALEVENTID').copy()
 
-    # Suppression articles Benin City via SOURCEURL
+    # suppression articles Benin City via SOURCEURL
     df_final = df_final[~df_final['SOURCEURL'].str.contains(mots_nigerians, case=False, na=False)]
 
     # Gestion des NaN
@@ -507,18 +506,18 @@ def run_pipeline(request):
     df_final['SourceCommonName'] = df_final['SourceCommonName'].fillna("Unknown")
     df_final['Themes']           = df_final['Themes'].fillna("")
 
-    # ── ÉTAPE 7 : Colonnes dérivées ──
+    # etape 7 : colonnes dérivées
 
-    # crisis — même formule que le notebook
+    # definition de la variable de crise crisis
     df_final['crisis'] = df_final['QuadClass'].isin([3, 4]).astype(int)
 
-    # Domaine — même nom que le notebook
+    # domaine
     df_final['Domaine'] = df_final['Themes'].apply(extraire_domaine)
 
     # Region
     df_final['Region'] = df_final['SourceCommonName'].apply(associer_region)
 
-    # ── ÉTAPE 8 : Colonnes finales dans l'ordre exact de la table BigQuery ──
+    # étape 8  : colonnes finales
     colonnes_finales = [
         'GLOBALEVENTID', 'SQLDATE', 'ActionGeo_FullName',
         'ActionGeo_Lat', 'ActionGeo_Long', 'AvgTone',
@@ -532,7 +531,7 @@ def run_pipeline(request):
 
     print(f"{len(df_final)} lignes à charger dans BigQuery")
 
-     # ── ÉTAPE 9 : Supprimer les données existantes pour cette date ──
+     # étape 9 supprimer les données existantes pour cette date 
     client = bigquery.Client()
     table_id = "isheero.test.benin_final"
     
@@ -543,7 +542,7 @@ def run_pipeline(request):
     client.query(delete_query).result()
     print(f"Données existantes supprimées pour {target_date}")
 
-    # ── ÉTAPE 10 : Charger dans BigQuery en mode APPEND ──
+    # etape 10 : charger dans BigQuery en mode APPEND 
 
     job_config = bigquery.LoadJobConfig(
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
