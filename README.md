@@ -91,6 +91,16 @@ Le dashboard Power BI est organisé comme suit :
 
 Nous avons des difficultés avec la mise en ligne du dashboard. Vous trouverai une vidéo demo dans le dossier du lien google drive contenant la vidéo de présentation. Le dashboard est totalement fonctionnel et les filtres temporels sont opérationnels!
 
+## Industrialisation du pipeline de données
+
+Afin de garantir une mise à jour automatique et reproductible du dataset, l'ensemble du pipeline de traitement a été industrialisé sur Google Cloud Platform. Nous avons développé et déployé Une Cloud Function Python (benin-pipeline-v1) via Google Cloud Shell. Cette fonction reproduit fidèlement toutes les étapes de transformation appliquées dans notre notebook d'analyse 1 : extraction des fichiers GDELT depuis gdeltproject.org, filtrage sur le Bénin, jointure des tables events et gkg, mapping des thématiques via le dictionnaire Domaine_MAPPING, assignation des régions d'origine des médias via un dictionnaire manuel complété par les extensions de domaine nationales, création de la variable crisis à partir de QuadClass et nettoyage du bruit géographique lié à Benin City au Nigeria. 
+
+Pour éviter toute duplication des données dans la table BigQuery benin_final, la Cloud Function supprime automatiquement les lignes existantes pour la date traitée avant d'insérer les nouvelles. Ce mécanisme garantit qu'une exécution multiple de la fonction sur une même date ne génère aucun doublon.
+
+Nous avons configuré un Cloud Scheduler pour déclencher automatiquement cette fonction chaque nuit à 2h00 UTC, assurant ainsi une mise à jour quotidienne sans intervention manuelle. La table benin_final dans BigQuery contient les données 2025 complètes, ainsi que les données du 1er au 5 janvier 2026 et du 9 mai 2026. Nous n'avons pas réalisé un backfill complet de l'année 2026 compte tenu des contraintes de temps.
+
+Notre dashboard final se connecte à la table benin_final issue de cette industrialisation.
+
 ## Équipe
 
 Nous sommes sûrs que nous sommes la meilleure équipe du hackathon et nous pouvons faire plus si nous en avons l'opportunité !
